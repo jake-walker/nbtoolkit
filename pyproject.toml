@@ -1,10 +1,16 @@
 [tool.poetry]
 name = "nbtoolkit"
 version = "0.1.1"
-description = "A simple utility for extracting images from Jupyter Notebooks"
+description = "A simple command line utility for working with Jupyter Notebooks"
 authors = ["Jake Walker <hi@jakew.me>"]
 readme = "README.md"
 license = "MIT"
+repository = "https://github.com/jake-walker/nbtoolkit"
+keywords = ["jupyter", "data science", "notebook", "utility"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+]
 
 [tool.poetry.scripts]
 nbkit = "nbtoolkit.main:app"
