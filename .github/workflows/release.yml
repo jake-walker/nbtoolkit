@@ -1,20 +1,30 @@
-name: Publish
+name: Release
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Create GH release
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: false
+          generate_release_notes: true
+
+      # Publish to PyPI
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: '3.x'
       - name: Install Poetry
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+          curl -sSL https://install.python-poetry.org | python3 -
           echo "${HOME}/.poetry/bin" >> $GITHUB_PATH
       - name: Configure Poetry
         run: poetry config pypi-token.pypi ${{ secrets.PYPI_API_KEY }}
